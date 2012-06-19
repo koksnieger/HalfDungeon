@@ -1,4 +1,4 @@
 HalfDungeon
 ===========
 
-F2P Dungeoneering Bot for RSBot
+RuneScape F2P Dungeoneering Bot for RSBot
