@@ -1,4 +1,4 @@
-package org.halfdungeon;
+package org.half;
 
 import org.powerbot.game.api.ActiveScript;
 import org.powerbot.game.api.Manifest;
