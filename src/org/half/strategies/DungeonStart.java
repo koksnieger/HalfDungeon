@@ -11,7 +11,7 @@ import org.powerbot.game.bot.event.listener.PaintListener;
 
 import java.awt.*;
 
-public class DungeonStart extends Strategy implements Task, Condition, PaintListener
+public class DungeonStart extends Strategy implements Task, PaintListener
 {
     public static final int EXIT_LADDER_FROZEN = 51156;
     public static final int EXIT_LADDER_ABANDONED = 50604;
