@@ -9,6 +9,7 @@ public class Door
 
     /**
      * Creates a door object.
+     *
      * @param room The room where this door is.
      */
     public Door(Room room)

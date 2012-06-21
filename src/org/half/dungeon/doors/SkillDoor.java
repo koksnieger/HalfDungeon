@@ -9,6 +9,7 @@ public class SkillDoor extends Door
 
     /**
      * Creates a skill door object.
+     *
      * @param room  The room where this door is.
      * @param skill The skill needed to open this door.
      */

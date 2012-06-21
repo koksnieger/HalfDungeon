@@ -8,7 +8,7 @@ import java.awt.*;
 
 /**
  * Draw a mouse trail and pointer.
- *
+ * <p/>
  * Note: The original code is from Deprecated (http://github.com/imDeprecated)
  */
 public class MousePaint extends Strategy implements PaintListener
@@ -36,7 +36,8 @@ public class MousePaint extends Strategy implements PaintListener
         }
     }
 
-    private static void drawPointer(final Graphics g) {
+    private static void drawPointer(final Graphics g)
+    {
         g.drawOval(Mouse.getX() - 5, Mouse.getY() - 5, 11, 11);
         g.fillOval(Mouse.getX() - 2, Mouse.getY() - 2, 5, 5);
     }

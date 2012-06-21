@@ -9,8 +9,9 @@ public class KeyDoor extends Door
 
     /**
      * Creates a skill door object.
-     * @param room  The room where this door is.
-     * @param key The key needed to open this door.
+     *
+     * @param room The room where this door is.
+     * @param key  The key needed to open this door.
      */
     public KeyDoor(Room room, Key key)
     {
