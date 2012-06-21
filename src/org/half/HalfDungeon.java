@@ -1,6 +1,7 @@
 package org.half;
 
 import org.half.strategies.DungeonStart;
+import org.half.strategies.Lobby;
 import org.half.userinterface.MousePaint;
 import org.powerbot.game.api.ActiveScript;
 import org.powerbot.game.api.Manifest;
@@ -19,6 +20,7 @@ public final class HalfDungeon extends ActiveScript
     {
         provide(new MousePaint());
 
-        provide(new DungeonStart());
+        provide(new Lobby());
+        //provide(new DungeonStart());
     }
 }
