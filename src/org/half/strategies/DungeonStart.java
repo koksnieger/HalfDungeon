@@ -64,7 +64,7 @@ public class DungeonStart extends Strategy implements Task, Condition, PaintList
         Room currentRoom = Avatar.getCurrentRoom();
         if (currentRoom != null)
         {
-            currentRoom.drawRoom(g, new Color(255, 255, 255, 160));
+            currentRoom.drawRoom(g);
         }
     }
 }

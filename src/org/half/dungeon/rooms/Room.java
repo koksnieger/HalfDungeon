@@ -55,7 +55,7 @@ public class Room
             }
         }
 
-        // add these
+        // add these tiles to an area
         _area = new Area(_tiles.toArray(new Tile[_tiles.size()]));
 
         System.out.println("Room tiles: " + _tiles.size());
@@ -70,24 +70,19 @@ public class Room
         return _doors;
     }
 
-    public void drawRoom(Graphics g, Color color)
+    public void drawRoom(Graphics g)
     {
-        Color oldColor = g.getColor();
-        g.setColor(color);
+        Color walkableColor = new Color(255, 255, 255, 60);
+        Color nonWalkableColor = new Color(255, 0, 0, 80);
 
-        Polygon mapArea = new Polygon();
         for (Tile tile : _tiles)
         {
+            g.setColor(tile.canReach() ? walkableColor : nonWalkableColor);
+
             tile.draw(g);
 
             Point mp = tile.getMapPoint();
-            mapArea.addPoint(mp.x, mp.y);
+            g.fillRect(mp.x, mp.y, 4, 4);
         }
-        for (int i = 0; i < mapArea.xpoints.length; i++)
-        {
-            g.fillRect(mapArea.xpoints[i], mapArea.ypoints[i], 4, 4);
-        }
-
-        g.setColor(oldColor);
     }
 }
