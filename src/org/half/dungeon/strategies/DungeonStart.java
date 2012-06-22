@@ -1,9 +1,8 @@
-package org.half.strategies;
+package org.half.dungeon.strategies;
 
 import org.half.dungeon.Avatar;
 import org.half.dungeon.rooms.Room;
 import org.powerbot.concurrent.Task;
-import org.powerbot.concurrent.strategy.Condition;
 import org.powerbot.concurrent.strategy.Strategy;
 import org.powerbot.game.api.methods.node.SceneEntities;
 import org.powerbot.game.api.wrappers.node.SceneObject;

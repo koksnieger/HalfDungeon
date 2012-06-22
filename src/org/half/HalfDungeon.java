@@ -1,7 +1,7 @@
 package org.half;
 
-import org.half.strategies.DungeonStart;
-import org.half.strategies.Lobby;
+import org.half.dungeon.strategies.DungeonStart;
+import org.half.dungeon.strategies.Lobby;
 import org.half.userinterface.MousePaint;
 import org.powerbot.game.api.ActiveScript;
 import org.powerbot.game.api.Manifest;
