@@ -1,17 +1,12 @@
 package org.half.dungeon.strategies;
 
-import org.half.dungeon.Avatar;
 import org.half.dungeon.Dungeon;
-import org.half.dungeon.rooms.Room;
 import org.powerbot.concurrent.Task;
 import org.powerbot.concurrent.strategy.Strategy;
 import org.powerbot.game.api.methods.node.SceneEntities;
 import org.powerbot.game.api.wrappers.node.SceneObject;
-import org.powerbot.game.bot.event.listener.PaintListener;
 
-import java.awt.*;
-
-public class DungeonStart extends Strategy implements Task, PaintListener
+public class DungeonStart extends Strategy implements Task
 {
     public static final int EXIT_LADDER_FROZEN = 51156;
     public static final int EXIT_LADDER_ABANDONED = 50604;
@@ -45,15 +40,5 @@ public class DungeonStart extends Strategy implements Task, PaintListener
         }
 
         Dungeon.setHasStarted(true);
-    }
-
-    @Override
-    public void onRepaint(final Graphics g)
-    {
-        Room currentRoom = Avatar.getCurrentRoom();
-        if (currentRoom != null)
-        {
-            currentRoom.drawRoom(g);
-        }
     }
 }

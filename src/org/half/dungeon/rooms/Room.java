@@ -61,7 +61,7 @@ public class Room
         return _tiles;
     }
 
-    public void drawRoom(Graphics g)
+    public void draw(Graphics2D g)
     {
         Color walkableColor = new Color(255, 255, 255, 70);
         Color nonWalkableColor = new Color(255, 0, 0, 90);
