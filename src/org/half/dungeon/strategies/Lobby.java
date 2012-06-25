@@ -2,6 +2,7 @@ package org.half.dungeon.strategies;
 
 import org.half.utils.Misc;
 import org.powerbot.concurrent.Task;
+import org.powerbot.concurrent.strategy.Condition;
 import org.powerbot.concurrent.strategy.Strategy;
 import org.powerbot.game.api.methods.Widgets;
 import org.powerbot.game.api.methods.input.Mouse;
@@ -33,21 +34,30 @@ public class Lobby extends Strategy implements Task
     public void run()
     {
         // Select complexity.
-        Widget selectComplexityWidget = Widgets.get(938);
+        final Widget selectComplexityWidget = Widgets.get(938);
         if (selectComplexityWidget.validate())
         {
             System.out.println("Select complexity.");
 
             selectComplexityWidget.getChild(60).interact("Select"); // Complexity 1
-            Misc.randomSleep(400);
+            Misc.sleepExponential(400);
 
             selectComplexityWidget.getChild(37).interact("Confirm"); // Confirm
-            Misc.randomSleep(800);
+
+            // Sleep until 'Select complexity' disappears.
+            Misc.sleepUntil(new Condition()
+            {
+                @Override
+                public boolean validate()
+                {
+                    return !selectComplexityWidget.validate();
+                }
+            });
             return;
         }
 
         // Select floor.
-        Widget selectFloorWidget = Widgets.get(947);
+        final Widget selectFloorWidget = Widgets.get(947);
         if (selectFloorWidget.validate())
         {
             System.out.println("Select floor.");
@@ -63,33 +73,60 @@ public class Lobby extends Strategy implements Task
                     Mouse.move((int) floorListBounds.getCenterX(), (int) floorListBounds.getCenterY());
                 }
                 Mouse.scroll(false);
-                Misc.randomSleep(400);
+                Misc.sleepExponential(400);
             }
             Mouse.click(floorWidget.getCentralPoint(), true); // Click floor row
-            Misc.randomSleep(400);
+            Misc.sleepExponential(400);
 
             selectFloorWidget.getChild(761).interact("Confirm"); // Confirm
-            Misc.randomSleep(700);
+
+            // Sleep until 'Select floor' disappears.
+            Misc.sleepUntil(new Condition()
+            {
+                @Override
+                public boolean validate()
+                {
+                    return !selectFloorWidget.validate();
+                }
+            });
             return;
         }
 
-        // Would you like to start a party? Yes.
-        Widget startPartyWidget = Widgets.get(1188);
+        // Would you like to start a party?
+        final Widget startPartyWidget = Widgets.get(1188);
         if (startPartyWidget.validate())
         {
             System.out.println("Would you like to start a party? Yes.");
             startPartyWidget.getChild(3).interact("Continue");
-            Misc.randomSleep(700);
+
+            // Sleep until 'Would you like to start a party?' disappears.
+            Misc.sleepUntil(new Condition()
+            {
+                @Override
+                public boolean validate()
+                {
+                    return !startPartyWidget.validate();
+                }
+            });
             return;
         }
 
         // You must be in a party to enter a dungeon.
-        Widget partyRequiredWidget = Widgets.get(1186);
+        final Widget partyRequiredWidget = Widgets.get(1186);
         if (partyRequiredWidget.validate())
         {
             System.out.println("You must be in a party to enter a dungeon.");
             partyRequiredWidget.getChild(8).interact("Continue");
-            Misc.randomSleep(700);
+
+            // Sleep until 'You must be in a party to enter a dungeon.' disappears.
+            Misc.sleepUntil(new Condition()
+            {
+                @Override
+                public boolean validate()
+                {
+                    return !partyRequiredWidget.validate();
+                }
+            });
             return;
         }
 
@@ -97,7 +134,6 @@ public class Lobby extends Strategy implements Task
         System.out.println("Climb.");
         SceneObject entrance = SceneEntities.getNearest(ENTRANCE);
         entrance.interact("Climb");
-        Misc.randomSleep(2000);
-        return;
+        Misc.sleepExponential(2000);
     }
 }
