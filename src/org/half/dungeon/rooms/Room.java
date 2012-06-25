@@ -2,7 +2,6 @@ package org.half.dungeon.rooms;
 
 import org.half.dungeon.doors.Door;
 import org.half.utils.Misc;
-import org.powerbot.game.api.wrappers.Area;
 import org.powerbot.game.api.wrappers.Tile;
 
 import java.awt.*;
@@ -11,7 +10,6 @@ import java.util.Stack;
 
 public class Room
 {
-    private Area _area;
     private ArrayList<Tile> _tiles;
     private Door[] _doors;
 
@@ -55,25 +53,18 @@ public class Room
             }
         }
 
-        // add these tiles to an area
-        _area = new Area(_tiles.toArray(new Tile[_tiles.size()]));
-
-        System.out.println("Room tiles: " + _tiles.size());
-        System.out.println("Room area tiles: " + _area.getTileArray().length);
+        System.out.println("New room tiles: " + _tiles.size());
     }
 
-    /**
-     * Gets this room doors.
-     */
-    public Door[] getDoors()
+    public ArrayList<Tile> getTiles()
     {
-        return _doors;
+        return _tiles;
     }
 
     public void drawRoom(Graphics g)
     {
-        Color walkableColor = new Color(255, 255, 255, 60);
-        Color nonWalkableColor = new Color(255, 0, 0, 80);
+        Color walkableColor = new Color(255, 255, 255, 70);
+        Color nonWalkableColor = new Color(255, 0, 0, 90);
 
         for (Tile tile : _tiles)
         {
