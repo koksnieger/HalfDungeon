@@ -4,8 +4,6 @@ import org.half.dungeon.rooms.Room;
 import org.powerbot.game.api.methods.interactive.Players;
 import org.powerbot.game.api.wrappers.Tile;
 
-import java.util.ArrayList;
-
 public enum Avatar
 {
     SINGLETON;
@@ -32,12 +30,9 @@ public enum Avatar
         Tile avatarLocation = Avatar.getLocation();
         for (Room room : Dungeon.getRooms())
         {
-            for (Tile tile : room.getTiles())
+            if (room.contains(avatarLocation))
             {
-                if (tile.equals(avatarLocation))
-                {
-                    return room;
-                }
+                return room;
             }
         }
         return null;
