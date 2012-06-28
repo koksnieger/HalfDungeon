@@ -12,16 +12,21 @@ public enum Dungeon
     private static final int WIDGET_DUNGEONEERING_HUD = 945;
 
     private static final ArrayList<Room> _rooms = new ArrayList<Room>(64);
-    private static boolean _hasStarted = false;
+    private static Room _homeRoom;
+
+    public static Room getHomeRoom()
+    {
+        return _homeRoom;
+    }
+
+    public static void setHomeRoom(Room startingRoom)
+    {
+        _homeRoom = startingRoom;
+    }
 
     public static boolean getHasStarted()
     {
-        return _hasStarted;
-    }
-
-    public static void setHasStarted(boolean hasStarted)
-    {
-        _hasStarted = hasStarted;
+        return _homeRoom != null;
     }
 
     public static boolean inDungeon()

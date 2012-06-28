@@ -1,5 +1,6 @@
 package org.half.dungeon.strategies;
 
+import org.half.dungeon.Avatar;
 import org.half.dungeon.Dungeon;
 import org.powerbot.concurrent.Task;
 import org.powerbot.concurrent.strategy.Strategy;
@@ -39,6 +40,7 @@ public class DungeonStart extends Strategy implements Task
             }
         }
 
-        Dungeon.setHasStarted(true);
+        // Save starting room.
+        Dungeon.setHomeRoom(Avatar.findRoom());
     }
 }
