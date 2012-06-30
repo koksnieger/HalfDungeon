@@ -130,6 +130,14 @@ public class Door
         {
             return new KeyDoor(room, position, object);
         }
+        else if (Misc.inArray(SkillDoor.OBJECT_DOOR_SKILL, object.getId()))
+        {
+            return new SkillDoor(room, position, object);
+        }
+        else if (Misc.inArray(PuzzleDoor.OBJECT_DOOR_PUZZLE, object.getId()))
+        {
+            return new PuzzleDoor(room, position, object);
+        }
 
         return null;
     }
@@ -146,6 +154,8 @@ public class Door
                 && (Misc.inArray(OBJECT_DOOR_NORMAL, object.getId())
                 || Misc.inArray(GuardianDoor.OBJECT_DOOR_GUARDIAN, object.getId())
                 || Misc.inArray(BossDoor.OBJECT_DOOR_BOSS, object.getId())
-                || Misc.inArray(KeyDoor.OBJECT_DOOR_KEY, object.getId()));
+                || Misc.inArray(KeyDoor.OBJECT_DOOR_KEY, object.getId())
+                || Misc.inArray(SkillDoor.OBJECT_DOOR_SKILL, object.getId())
+                || Misc.inArray(PuzzleDoor.OBJECT_DOOR_PUZZLE, object.getId()));
     }
 }
