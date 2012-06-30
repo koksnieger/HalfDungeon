@@ -2,6 +2,7 @@ package org.half.dungeon.rooms;
 
 import org.half.dungeon.Dungeon;
 import org.half.dungeon.doors.Door;
+import org.powerbot.game.api.methods.node.SceneEntities;
 import org.powerbot.game.api.wrappers.Area;
 import org.powerbot.game.api.wrappers.Tile;
 
@@ -11,15 +12,12 @@ import java.util.Stack;
 
 public class Room extends Area
 {
-    private Door[] _doors;
+    private final Door[] _doors = new Door[4];
     private final Point _coordinates = new Point(0, 0);
 
-    /**
-     * Create a room holding the door references.
-     */
-    public Room(Door[] doors)
+    protected Room()
     {
-        _doors = doors;
+        //TODO: remove this
     }
 
     /**
@@ -31,6 +29,7 @@ public class Room extends Area
     {
         plane = knownTile.getPlane();
 
+        // Find this room area.
         final Room homeRoom = Dungeon.getHomeRoom();
         if (homeRoom != null)
         {
@@ -104,12 +103,41 @@ public class Room extends Area
             addTile(min.x, min.y + 14);
         }
 
-        System.out.println("New room at " + _coordinates.x + ", " + _coordinates.y + " with " + getTileArray().length + " tiles.");
+        // Create the doors in this new area.
+        Rectangle bounds = getBounds();
+        _doors[0] = Door.createFromObject(this, 0, SceneEntities.getAt(bounds.x + 7, bounds.y + 14, SceneEntities.TYPE_INTERACTIVE)); // north
+        _doors[1] = Door.createFromObject(this, 1, SceneEntities.getAt(bounds.x + 14, bounds.y + 7, SceneEntities.TYPE_INTERACTIVE)); // east
+        _doors[2] = Door.createFromObject(this, 2, SceneEntities.getAt(bounds.x + 7, bounds.y - 1, SceneEntities.TYPE_INTERACTIVE));  // south
+        _doors[3] = Door.createFromObject(this, 3, SceneEntities.getAt(bounds.x - 1, bounds.y + 7, SceneEntities.TYPE_INTERACTIVE));  // west
+
+        System.out.println("\nNew room at " + _coordinates.x + ", " + _coordinates.y + " with " + getTileArray().length + " tiles.");
+        for (Door door : _doors)
+        {
+            if (door != null)
+            {
+                System.out.println(door);
+            }
+        }
     }
 
+    /**
+     * Gets this room relative coordinates to home room.
+     *
+     * @return This room relative coordinates to home room.
+     */
     public Point getCoordinates()
     {
         return _coordinates;
+    }
+
+    /**
+     * Gets this room doors.
+     *
+     * @return This room doors.
+     */
+    public Door[] getDoors()
+    {
+        return _doors;
     }
 
     public void draw(Graphics2D g)

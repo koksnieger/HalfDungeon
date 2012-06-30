@@ -1,20 +1,35 @@
 package org.half.dungeon.doors;
 
 import org.half.dungeon.rooms.Room;
+import org.half.utils.Misc;
+import org.powerbot.game.api.wrappers.node.SceneObject;
 
 public class Door
 {
-    private final Room _room;
-    private Room _destinationRoom;
+    public static final int OBJECT_DOOR_NORMAL_FROZEN = 50342;
+    public static final int OBJECT_DOOR_NORMAL_ABANDONED = 50343;
+    public static final int[] OBJECT_DOOR_NORMAL = {
+            OBJECT_DOOR_NORMAL_FROZEN,
+            OBJECT_DOOR_NORMAL_ABANDONED,
+    };
+
+    protected final Room _room;
+    protected final int _position;
+    protected final SceneObject _object;
+    protected Room _destinationRoom;
 
     /**
      * Creates a door object.
      *
-     * @param room The room where this door is.
+     * @param room     The room where this door is.
+     * @param position The position of this door in the room. (0 = North, 1 = East, 2 = South, 3 = West)
+     * @param object   The scene object associated with this door.
      */
-    public Door(Room room)
+    protected Door(final Room room, final int position, final SceneObject object)
     {
         _room = room;
+        _position = position;
+        _object = object;
     }
 
     /**
@@ -23,6 +38,45 @@ public class Door
     public Room getRoom()
     {
         return _room;
+    }
+
+    /**
+     * Gets the position in the room where this door is.
+     *
+     * @return The position of this door in the room. (0 = North, 1 = East, 2 = South, 3 = West)
+     */
+    public int getPosition()
+    {
+        return _position;
+    }
+
+    /**
+     * Gets the position in the room where this door is.
+     *
+     * @return The compass position of this door in the room.
+     */
+    public String getCompassPosition()
+    {
+        switch (_position)
+        {
+            case 0:
+                return "North";
+            case 1:
+                return "East";
+            case 2:
+                return "South";
+            case 3:
+                return "West";
+        }
+        return null;
+    }
+
+    /**
+     * Gets this door scene object.
+     */
+    public SceneObject getObject()
+    {
+        return _object;
     }
 
     /**
@@ -39,5 +93,59 @@ public class Door
     public void setDestinationRoom(Room destinationRoom)
     {
         _destinationRoom = destinationRoom;
+    }
+
+    public String toString()
+    {
+        return getCompassPosition() + " Door: Normal";
+    }
+
+    /**
+     * Creates a new door from an existing scene object.
+     *
+     * @param room     The room where this door is.
+     * @param position The position of this door in the room. (0 = North, 1 = East, 2 = South, 3 = West)
+     * @param object   The scene object associated with this door.
+     * @return A corresponding door object.
+     */
+    public static Door createFromObject(final Room room, final int position, final SceneObject object)
+    {
+        if (object == null)
+        {
+            return null;
+        }
+        else if (Misc.inArray(OBJECT_DOOR_NORMAL, object.getId()))
+        {
+            return new Door(room, position, object);
+        }
+        else if (Misc.inArray(GuardianDoor.OBJECT_DOOR_GUARDIAN, object.getId()))
+        {
+            return new GuardianDoor(room, position, object);
+        }
+        else if (Misc.inArray(BossDoor.OBJECT_DOOR_BOSS, object.getId()))
+        {
+            return new BossDoor(room, position, object);
+        }
+        else if (Misc.inArray(KeyDoor.OBJECT_DOOR_KEY, object.getId()))
+        {
+            return new KeyDoor(room, position, object);
+        }
+
+        return null;
+    }
+
+    /**
+     * Checks if a scene object is a door.
+     *
+     * @param object Scene object to check.
+     * @return True if scene object is a door. False otherwise.
+     */
+    public static boolean objectIsDoor(final SceneObject object)
+    {
+        return object != null
+                && (Misc.inArray(OBJECT_DOOR_NORMAL, object.getId())
+                || Misc.inArray(GuardianDoor.OBJECT_DOOR_GUARDIAN, object.getId())
+                || Misc.inArray(BossDoor.OBJECT_DOOR_BOSS, object.getId())
+                || Misc.inArray(KeyDoor.OBJECT_DOOR_KEY, object.getId()));
     }
 }
