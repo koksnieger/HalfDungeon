@@ -35,4 +35,45 @@ public class Misc
         while (!condition.validate());
         return totalTime;
     }
+
+    /**
+     * Determines whether one of the elements is in the array.
+     *
+     * @param array    The array to search into.
+     * @param elements The elements to locate in the array.
+     * @return True if one of the elements is found or false otherwise.
+     */
+    public static boolean inArray(final int[] array, final int... elements)
+    {
+        for (int hay : array)
+        {
+            for (int needle : elements)
+            {
+                if (hay == needle)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines whether one of the elements is in the array.
+     *
+     * @param array    The array to search into.
+     * @param elements The elements to locate in the array.
+     * @return True if one of the elements is found or false otherwise.
+     */
+    public static boolean inArray(final int[][] array, final int... elements)
+    {
+        for (int[] hay : array)
+        {
+            if (inArray(hay, elements))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
