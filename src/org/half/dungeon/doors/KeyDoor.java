@@ -85,7 +85,7 @@ public class KeyDoor extends Door
     public static final int OBJECT_DOOR_KEY_BLUE_DIAMOND_FROZEN = 50386;
     public static final int OBJECT_DOOR_KEY_BLUE_RECTANGLE_FROZEN = 50387;
     public static final int OBJECT_DOOR_KEY_BLUE_PENTAGON_FROZEN = 50388;
-    public static final int OBJECT_DOOR_KEY_BLUE_CORNER_FROZEN = 50388;
+    public static final int OBJECT_DOOR_KEY_BLUE_CORNER_FROZEN = 50389;
     public static final int OBJECT_DOOR_KEY_BLUE_CRESCENT_FROZEN = 50390;
     public static final int OBJECT_DOOR_KEY_BLUE_WEDGE_FROZEN = 50391;
     public static final int OBJECT_DOOR_KEY_BLUE_SHIELD_FROZEN = 50392;
