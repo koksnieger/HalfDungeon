@@ -5,6 +5,19 @@ import org.powerbot.game.api.wrappers.node.SceneObject;
 
 public class SkillDoor extends Door
 {
+    public static final int OBJECT_DOOR_SKILL_BARRED_CLOSED_FROZEN = 50272;
+    public static final int OBJECT_DOOR_SKILL_BARRED_OPEN_FROZEN = 50275;
+
+    public static final int OBJECT_DOOR_SKILL_BROKEN_PULLEY_CLOSED_FROZEN = 50299;
+    public static final int OBJECT_DOOR_SKILL_BROKEN_PULLEY_OPEN_FROZEN = 50302;
+
+    public static final int[] OBJECT_DOOR_SKILL = {
+            OBJECT_DOOR_SKILL_BARRED_CLOSED_FROZEN,
+            OBJECT_DOOR_SKILL_BARRED_OPEN_FROZEN,
+            OBJECT_DOOR_SKILL_BROKEN_PULLEY_CLOSED_FROZEN,
+            OBJECT_DOOR_SKILL_BROKEN_PULLEY_OPEN_FROZEN
+    };
+
     /**
      * Creates a skill door object.
      *
