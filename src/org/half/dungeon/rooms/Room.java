@@ -146,6 +146,11 @@ public class Room extends Area
         };
 
         // Create the proper room object.
+        if (coordinates.x == 0 && coordinates.y == 0)
+        {
+            return new HomeRoom(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
+        }
+
         for (Door door : doors)
         {
             if (door instanceof BossDoor)
