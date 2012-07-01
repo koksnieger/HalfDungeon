@@ -1,14 +1,13 @@
 package org.half.dungeon.rooms;
 
 import org.half.dungeon.doors.Door;
-import org.powerbot.game.api.wrappers.Tile;
 
 import java.awt.*;
 
 public class MonolithPuzzleRoom extends PuzzleRoom
 {
-    protected MonolithPuzzleRoom(Tile northwestTile, Tile southeastTile, Point coordinates, Door[] doors)
+    protected MonolithPuzzleRoom(final Rectangle bounds, final Point coordinates, final Door[] doors)
     {
-        super(northwestTile, southeastTile, coordinates, doors);
+        super(bounds, coordinates, doors);
     }
 }

@@ -17,9 +17,9 @@ public class Room extends Area
     private final Door[] _doors;
     private final Point _coordinates;
 
-    protected Room(Tile northwestTile, Tile southeastTile, Point coordinates, Door[] doors)
+    protected Room(final Rectangle bounds, final Point coordinates, final Door[] doors)
     {
-        super(northwestTile, southeastTile);
+        super(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height));
         _coordinates = coordinates;
         _doors = doors;
     }
@@ -148,7 +148,7 @@ public class Room extends Area
         // Create the proper room object.
         if (coordinates.x == 0 && coordinates.y == 0)
         {
-            return new HomeRoom(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
+            return new HomeRoom(bounds, coordinates, doors);
         }
 
         for (Door door : doors)
@@ -156,15 +156,15 @@ public class Room extends Area
             if (door instanceof BossDoor)
             {
                 // TODO: add boss detection
-                return new BossRoom(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
+                return new BossRoom(bounds, coordinates, doors);
             }
             else if (door instanceof PuzzleDoor)
             {
                 // TODO: add puzzle detection
-                return new PuzzleRoom(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
+                return new PuzzleRoom(bounds, coordinates, doors);
             }
         }
 
-        return new Room(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
+        return new Room(bounds, coordinates, doors);
     }
 }
