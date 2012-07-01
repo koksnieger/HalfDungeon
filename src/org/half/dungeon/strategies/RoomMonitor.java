@@ -7,7 +7,11 @@ import org.powerbot.concurrent.Task;
 import org.powerbot.concurrent.strategy.Strategy;
 import org.powerbot.game.api.methods.Game;
 
-public class RoomBuilder extends Strategy implements Task
+/**
+ * Strategy that monitors room switching.
+ * This is where the dungeon gets mapped.
+ */
+public class RoomMonitor extends Strategy implements Task
 {
     @Override
     public boolean validate()
