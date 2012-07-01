@@ -3,6 +3,7 @@ package org.half.dungeon.rooms;
 import org.half.dungeon.Dungeon;
 import org.half.dungeon.doors.BossDoor;
 import org.half.dungeon.doors.Door;
+import org.half.dungeon.doors.PuzzleDoor;
 import org.powerbot.game.api.methods.node.SceneEntities;
 import org.powerbot.game.api.wrappers.Area;
 import org.powerbot.game.api.wrappers.Tile;
@@ -147,9 +148,15 @@ public class Room extends Area
         // Create the proper room object.
         for (Door door : doors)
         {
-            if (door != null && door instanceof BossDoor)
+            if (door instanceof BossDoor)
             {
+                // TODO: add boss detection
                 return new BossRoom(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
+            }
+            else if (door instanceof PuzzleDoor)
+            {
+                // TODO: add puzzle detection
+                return new PuzzleRoom(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
             }
         }
 
