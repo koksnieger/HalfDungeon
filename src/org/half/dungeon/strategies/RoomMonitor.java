@@ -28,7 +28,7 @@ public class RoomMonitor extends Strategy implements Task
         if (avatarRoom == null)
         {
             // Room isn't mapped, so map it
-            avatarRoom = new Room(Avatar.getLocation());
+            avatarRoom = Room.createRoomFromTile(Avatar.getLocation());
             Dungeon.getRooms().add(avatarRoom);
         }
 

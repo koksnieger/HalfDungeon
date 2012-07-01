@@ -12,22 +12,66 @@ import java.util.Stack;
 
 public class Room extends Area
 {
-    private final Door[] _doors = new Door[4];
-    private final Point _coordinates = new Point(0, 0);
+    private final Door[] _doors;
+    private final Point _coordinates;
 
-    protected Room()
+    protected Room(Tile northwestTile, Tile southeastTile, Point coordinates, Door[] doors)
     {
-        //TODO: remove this
+        super(northwestTile, southeastTile);
+        _coordinates = coordinates;
+        _doors = doors;
+
+        Rectangle bounds = getBounds();
+        System.out.println("\nNew room at " + coordinates.x + ", " + coordinates.y + " with " + (bounds.width * bounds.height) + " tiles.");
+        for (Door door : doors)
+        {
+            if (door != null)
+            {
+                System.out.println(door);
+            }
+        }
     }
 
     /**
-     * Creates a room from flood filling a tile.
+     * Gets this room relative coordinates to home room.
      *
-     * @param knownTile Starting tile to flood fill.
+     * @return This room relative coordinates to home room.
      */
-    public Room(Tile knownTile)
+    public Point getCoordinates()
     {
-        plane = knownTile.getPlane();
+        return _coordinates;
+    }
+
+    /**
+     * Gets this room doors.
+     *
+     * @return This room doors.
+     */
+    public Door[] getDoors()
+    {
+        return _doors;
+    }
+
+    public void draw(Graphics2D g)
+    {
+        Color walkableColor = new Color(255, 255, 255, 70);
+        Color nonWalkableColor = new Color(255, 0, 0, 90);
+
+        for (Tile tile : getTileArray())
+        {
+            g.setColor(tile.canReach() ? walkableColor : nonWalkableColor);
+
+            tile.draw(g);
+
+            Point mp = tile.getMapPoint();
+            g.fillRect(mp.x, mp.y, 4, 4);
+        }
+    }
+
+    public static Room createRoomFromTile(Tile knownTile)
+    {
+        Rectangle bounds = null;
+        final Point coordinates = new Point(0, 0);
 
         // Find this room area.
         final Room homeRoom = Dungeon.getHomeRoom();
@@ -40,16 +84,11 @@ public class Room extends Area
             {
                 for (int y = homeRoomBounds.y - 112; y <= homeRoomBounds.y + 122; y += 16)
                 {
-                    final Area area = new Area(new RoomTile(x, y), new RoomTile(x + 14, y + 14));
-                    if (area.contains(knownTile))
+                    Rectangle tempBounds = new Rectangle(x, y, 14, 14);
+                    if (tempBounds.contains(knownTile.getX(), knownTile.getY()))
                     {
-                        final Rectangle areaBounds = area.getBounds();
-                        addTile(areaBounds.x, areaBounds.y);
-                        addTile(areaBounds.x + areaBounds.width, areaBounds.y);
-                        addTile(areaBounds.x + areaBounds.width, areaBounds.y + areaBounds.height);
-                        addTile(areaBounds.x, areaBounds.y + areaBounds.height);
-
-                        _coordinates.setLocation((x - homeRoomBounds.x) / 16, (homeRoomBounds.y - y) / 16);
+                        bounds = tempBounds;
+                        coordinates.setLocation((x - homeRoomBounds.x) / 16, (homeRoomBounds.y - y) / 16);
                         break;
                     }
                 }
@@ -97,62 +136,17 @@ public class Room extends Area
                 }
             }
 
-            addTile(min.x, min.y);
-            addTile(min.x + 14, min.y);
-            addTile(min.x + 14, min.y + 14);
-            addTile(min.x, min.y + 14);
+            bounds = new Rectangle(min.x, min.y, 14, 14);
         }
 
         // Create the doors in this new area.
-        Rectangle bounds = getBounds();
-        _doors[0] = Door.createFromObject(this, 0, SceneEntities.getAt(bounds.x + 7, bounds.y + 14, SceneEntities.TYPE_INTERACTIVE)); // north
-        _doors[1] = Door.createFromObject(this, 1, SceneEntities.getAt(bounds.x + 14, bounds.y + 7, SceneEntities.TYPE_INTERACTIVE)); // east
-        _doors[2] = Door.createFromObject(this, 2, SceneEntities.getAt(bounds.x + 7, bounds.y - 1, SceneEntities.TYPE_INTERACTIVE));  // south
-        _doors[3] = Door.createFromObject(this, 3, SceneEntities.getAt(bounds.x - 1, bounds.y + 7, SceneEntities.TYPE_INTERACTIVE));  // west
+        Door[] doors = {
+                Door.createFromObject(0, SceneEntities.getAt(bounds.x + 7, bounds.y + 14, SceneEntities.TYPE_INTERACTIVE)), // north
+                Door.createFromObject(1, SceneEntities.getAt(bounds.x + 14, bounds.y + 7, SceneEntities.TYPE_INTERACTIVE)), // east
+                Door.createFromObject(2, SceneEntities.getAt(bounds.x + 7, bounds.y - 1, SceneEntities.TYPE_INTERACTIVE)),  // south
+                Door.createFromObject(3, SceneEntities.getAt(bounds.x - 1, bounds.y + 7, SceneEntities.TYPE_INTERACTIVE))   // west
+        };
 
-        System.out.println("\nNew room at " + _coordinates.x + ", " + _coordinates.y + " with " + getTileArray().length + " tiles.");
-        for (Door door : _doors)
-        {
-            if (door != null)
-            {
-                System.out.println(door);
-            }
-        }
-    }
-
-    /**
-     * Gets this room relative coordinates to home room.
-     *
-     * @return This room relative coordinates to home room.
-     */
-    public Point getCoordinates()
-    {
-        return _coordinates;
-    }
-
-    /**
-     * Gets this room doors.
-     *
-     * @return This room doors.
-     */
-    public Door[] getDoors()
-    {
-        return _doors;
-    }
-
-    public void draw(Graphics2D g)
-    {
-        Color walkableColor = new Color(255, 255, 255, 70);
-        Color nonWalkableColor = new Color(255, 0, 0, 90);
-
-        for (Tile tile : getTileArray())
-        {
-            g.setColor(tile.canReach() ? walkableColor : nonWalkableColor);
-
-            tile.draw(g);
-
-            Point mp = tile.getMapPoint();
-            g.fillRect(mp.x, mp.y, 4, 4);
-        }
+        return new Room(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
     }
 }

@@ -13,7 +13,6 @@ public class Door
             OBJECT_DOOR_NORMAL_ABANDONED,
     };
 
-    protected final Room _room;
     protected final int _position;
     protected final SceneObject _object;
     protected Room _destinationRoom;
@@ -21,23 +20,13 @@ public class Door
     /**
      * Creates a door object.
      *
-     * @param room     The room where this door is.
      * @param position The position of this door in the room. (0 = North, 1 = East, 2 = South, 3 = West)
      * @param object   The scene object associated with this door.
      */
-    protected Door(final Room room, final int position, final SceneObject object)
+    protected Door(final int position, final SceneObject object)
     {
-        _room = room;
         _position = position;
         _object = object;
-    }
-
-    /**
-     * Gets the room where this door is.
-     */
-    public Room getRoom()
-    {
-        return _room;
     }
 
     /**
@@ -103,12 +92,11 @@ public class Door
     /**
      * Creates a new door from an existing scene object.
      *
-     * @param room     The room where this door is.
      * @param position The position of this door in the room. (0 = North, 1 = East, 2 = South, 3 = West)
      * @param object   The scene object associated with this door.
      * @return A corresponding door object.
      */
-    public static Door createFromObject(final Room room, final int position, final SceneObject object)
+    public static Door createFromObject(final int position, final SceneObject object)
     {
         if (object == null)
         {
@@ -116,27 +104,27 @@ public class Door
         }
         else if (Misc.inArray(OBJECT_DOOR_NORMAL, object.getId()))
         {
-            return new Door(room, position, object);
+            return new Door(position, object);
         }
         else if (Misc.inArray(GuardianDoor.OBJECT_DOOR_GUARDIAN, object.getId()))
         {
-            return new GuardianDoor(room, position, object);
+            return new GuardianDoor(position, object);
         }
         else if (Misc.inArray(BossDoor.OBJECT_DOOR_BOSS, object.getId()))
         {
-            return new BossDoor(room, position, object);
+            return new BossDoor(position, object);
         }
         else if (Misc.inArray(KeyDoor.OBJECT_DOOR_KEY, object.getId()))
         {
-            return new KeyDoor(room, position, object);
+            return new KeyDoor(position, object);
         }
         else if (Misc.inArray(SkillDoor.OBJECT_DOOR_SKILL, object.getId()))
         {
-            return new SkillDoor(room, position, object);
+            return new SkillDoor(position, object);
         }
         else if (Misc.inArray(PuzzleDoor.OBJECT_DOOR_PUZZLE, object.getId()))
         {
-            return new PuzzleDoor(room, position, object);
+            return new PuzzleDoor(position, object);
         }
 
         return null;
