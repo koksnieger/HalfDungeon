@@ -4,6 +4,7 @@ import org.half.dungeon.Dungeon;
 import org.half.dungeon.doors.BossDoor;
 import org.half.dungeon.doors.Door;
 import org.half.dungeon.doors.PuzzleDoor;
+import org.half.utils.Misc;
 import org.powerbot.game.api.methods.node.SceneEntities;
 import org.powerbot.game.api.wrappers.Area;
 import org.powerbot.game.api.wrappers.Tile;
@@ -14,6 +15,8 @@ import java.util.Stack;
 
 public class Room extends Area
 {
+    private final static BasicStroke GFX_STROKE = new BasicStroke(2.0f);
+
     private final Door[] _doors;
     private final Point _coordinates;
 
@@ -44,20 +47,36 @@ public class Room extends Area
         return _doors;
     }
 
-    public void draw(Graphics2D g)
+    /**
+     * Draw this room on the game mini map.
+     *
+     * @param g The graphics surface to draw on.
+     */
+    public void drawOnMiniMap(Graphics2D g)
     {
-        Color walkableColor = new Color(255, 255, 255, 70);
-        Color nonWalkableColor = new Color(255, 0, 0, 90);
+        Stroke oldStroke = g.getStroke();
 
-        for (Tile tile : getTileArray())
-        {
-            g.setColor(tile.canReach() ? walkableColor : nonWalkableColor);
+        // draw room on mini map
+        Rectangle bounds = getBounds();
+        Point northwestMapPoint = Misc.worldToMap(bounds.x - 1, bounds.y - 1);
+        Point northeastMapPoint = Misc.worldToMap(bounds.x + bounds.width, bounds.y - 1);
+        Point southeastMapPoint = Misc.worldToMap(bounds.x + bounds.width, bounds.y + bounds.height);
+        Point southwestMapPoint = Misc.worldToMap(bounds.x - 1, bounds.y + bounds.height);
 
-            tile.draw(g);
+        Polygon p = new Polygon();
+        p.addPoint(northwestMapPoint.x, northwestMapPoint.y);
+        p.addPoint(northeastMapPoint.x, northeastMapPoint.y);
+        p.addPoint(southeastMapPoint.x, southeastMapPoint.y);
+        p.addPoint(southwestMapPoint.x, southwestMapPoint.y);
 
-            Point mp = tile.getMapPoint();
-            g.fillRect(mp.x, mp.y, 4, 4);
-        }
+        g.setColor(new Color(255, 255, 255, 102));
+        g.fillPolygon(p);
+
+        g.setColor(new Color(255, 255, 255, 204));
+        g.setStroke(GFX_STROKE);
+        g.drawPolygon(p);
+
+        g.setStroke(oldStroke);
     }
 
     @Override
