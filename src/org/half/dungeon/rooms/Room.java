@@ -1,6 +1,7 @@
 package org.half.dungeon.rooms;
 
 import org.half.dungeon.Dungeon;
+import org.half.dungeon.doors.BossDoor;
 import org.half.dungeon.doors.Door;
 import org.powerbot.game.api.methods.node.SceneEntities;
 import org.powerbot.game.api.wrappers.Area;
@@ -20,16 +21,6 @@ public class Room extends Area
         super(northwestTile, southeastTile);
         _coordinates = coordinates;
         _doors = doors;
-
-        Rectangle bounds = getBounds();
-        System.out.println("\nNew room at " + coordinates.x + ", " + coordinates.y + " with " + (bounds.width * bounds.height) + " tiles.");
-        for (Door door : doors)
-        {
-            if (door != null)
-            {
-                System.out.println(door);
-            }
-        }
     }
 
     /**
@@ -66,6 +57,12 @@ public class Room extends Area
             Point mp = tile.getMapPoint();
             g.fillRect(mp.x, mp.y, 4, 4);
         }
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Room (" + _coordinates.x + ", " + _coordinates.y + ")";
     }
 
     public static Room createRoomFromTile(Tile knownTile)
@@ -146,6 +143,15 @@ public class Room extends Area
                 Door.createFromObject(2, SceneEntities.getAt(bounds.x + 7, bounds.y - 1, SceneEntities.TYPE_INTERACTIVE)),  // south
                 Door.createFromObject(3, SceneEntities.getAt(bounds.x - 1, bounds.y + 7, SceneEntities.TYPE_INTERACTIVE))   // west
         };
+
+        // Create the proper room object.
+        for (Door door : doors)
+        {
+            if (door != null && door instanceof BossDoor)
+            {
+                return new BossRoom(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
+            }
+        }
 
         return new Room(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height), coordinates, doors);
     }

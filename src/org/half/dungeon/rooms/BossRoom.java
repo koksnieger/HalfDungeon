@@ -11,4 +11,10 @@ public class BossRoom extends Room
     {
         super(northwestTile, southeastTile, coordinates, doors);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Boss " + super.toString();
+    }
 }

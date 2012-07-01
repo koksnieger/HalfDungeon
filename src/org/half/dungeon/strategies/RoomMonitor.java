@@ -2,6 +2,7 @@ package org.half.dungeon.strategies;
 
 import org.half.dungeon.Avatar;
 import org.half.dungeon.Dungeon;
+import org.half.dungeon.doors.Door;
 import org.half.dungeon.rooms.Room;
 import org.powerbot.concurrent.Task;
 import org.powerbot.concurrent.strategy.Strategy;
@@ -30,6 +31,16 @@ public class RoomMonitor extends Strategy implements Task
             // Room isn't mapped, so map it
             avatarRoom = Room.createRoomFromTile(Avatar.getLocation());
             Dungeon.getRooms().add(avatarRoom);
+
+            // Show some debugging output
+            System.out.println("\nNew " + avatarRoom);
+            for (Door door : avatarRoom.getDoors())
+            {
+                if (door != null)
+                {
+                    System.out.println(door);
+                }
+            }
         }
 
         // Change avatar current room
