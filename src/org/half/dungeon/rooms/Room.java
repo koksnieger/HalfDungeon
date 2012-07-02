@@ -91,7 +91,7 @@ public class Room extends Area
         final Point coordinates = new Point(0, 0);
 
         // Find this room area.
-        final Room homeRoom = Dungeon.getHomeRoom();
+        final Room homeRoom = Dungeon.homeRoom();
         if (homeRoom != null)
         {
             // if we know the home room boundaries, then we can map the whole dungeon

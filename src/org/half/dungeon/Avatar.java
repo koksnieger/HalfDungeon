@@ -4,6 +4,9 @@ import org.half.dungeon.rooms.Room;
 import org.powerbot.game.api.methods.interactive.Players;
 import org.powerbot.game.api.wrappers.Tile;
 
+/**
+ * Thread safe 'class' to hold some of the avatar properties.
+ */
 public enum Avatar
 {
     SINGLETON;
@@ -28,7 +31,7 @@ public enum Avatar
     public static Room findRoom()
     {
         Tile avatarLocation = Avatar.getLocation();
-        for (Room room : Dungeon.getRooms())
+        for (Room room : Dungeon.rooms())
         {
             if (room.contains(avatarLocation))
             {

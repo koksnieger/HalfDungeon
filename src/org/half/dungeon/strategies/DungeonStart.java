@@ -12,12 +12,18 @@ public class DungeonStart extends Strategy implements Task
     public static final int EXIT_LADDER_FROZEN = 51156;
     public static final int EXIT_LADDER_ABANDONED = 50604;
     public static final int EXIT_LADDER_FURNISHED = 51704;
-    public static final int[] EXIT_LADDERS = {EXIT_LADDER_ABANDONED, EXIT_LADDER_FROZEN, EXIT_LADDER_FURNISHED};
+    public static final int[] EXIT_LADDERS = {
+            EXIT_LADDER_ABANDONED,
+            EXIT_LADDER_FROZEN,
+            EXIT_LADDER_FURNISHED
+    };
 
     @Override
     public boolean validate()
     {
-        return !Dungeon.getHasStarted() && SceneEntities.getNearest(EXIT_LADDERS) != null;
+        return Dungeon.inside()
+                && Dungeon.type() == Dungeon.UNKNOWN
+                && SceneEntities.getNearest(EXIT_LADDERS) != null;
     }
 
     @Override
@@ -29,18 +35,18 @@ public class DungeonStart extends Strategy implements Task
             switch (exitLadder.getId())
             {
                 case EXIT_LADDER_FROZEN:
+                    Dungeon.setType(Dungeon.FROZEN);
                     System.out.println("Frozen dungeon started.");
                     break;
                 case EXIT_LADDER_ABANDONED:
+                    Dungeon.setType(Dungeon.ABANDONED);
                     System.out.println("Abandoned dungeon started.");
                     break;
                 case EXIT_LADDER_FURNISHED:
+                    Dungeon.setType(Dungeon.FURNISHED);
                     System.out.println("Furnished dungeon started.");
                     break;
             }
         }
-
-        // Save starting room.
-        Dungeon.setHomeRoom(Avatar.findRoom());
     }
 }

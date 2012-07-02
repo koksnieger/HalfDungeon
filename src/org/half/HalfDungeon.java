@@ -31,7 +31,6 @@ public final class HalfDungeon extends ActiveScript implements PaintListener
 
         provide(new Lobby());
         provide(new RoomMonitor());
-
         provide(new DungeonStart());
     }
 
@@ -41,7 +40,7 @@ public final class HalfDungeon extends ActiveScript implements PaintListener
         Graphics2D g = (Graphics2D) graphics;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if (Dungeon.inDungeon())
+        if (Dungeon.inside())
         {
             // draw current room on mini map
             Room currentRoom = Avatar.getCurrentRoom();
@@ -51,7 +50,7 @@ public final class HalfDungeon extends ActiveScript implements PaintListener
             }
 
             // draw overlay map
-            ArrayList<Room> rooms = Dungeon.getRooms();
+            ArrayList<Room> rooms = Dungeon.rooms();
 
             // find top left coordinates
             Point northwestCoords = new Point(0, 0);
@@ -91,7 +90,7 @@ public final class HalfDungeon extends ActiveScript implements PaintListener
                 g.drawRect(x, y, 27, 27);
                 g.drawRect(x + 1, y + 1, 25, 25);
 
-                if (room == Dungeon.getHomeRoom())
+                if (room == Dungeon.homeRoom())
                 {
                     g.setColor(new Color(255, 255, 255, 64));
                 }
