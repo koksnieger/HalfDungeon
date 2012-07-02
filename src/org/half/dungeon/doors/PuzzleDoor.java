@@ -6,10 +6,12 @@ public class PuzzleDoor extends Door
 {
     public static final int OBJECT_DOOR_PUZZLE_SLIDING_STATUES_FROZEN = 49375;
     public static final int OBJECT_DOOR_PUZZLE_MONOLITH_FROZEN = 49462;
+    public static final int OBJECT_DOOR_MIRROR_STATUE_WEAPON_FROZEN = 49625;
     public static final int OBJECT_DOOR_PUZZLE_COLOURED_FERRETS_FROZEN = 54360;
     public static final int[] OBJECT_DOOR_PUZZLE = {
             OBJECT_DOOR_PUZZLE_SLIDING_STATUES_FROZEN,
             OBJECT_DOOR_PUZZLE_MONOLITH_FROZEN,
+            OBJECT_DOOR_MIRROR_STATUE_WEAPON_FROZEN,
             OBJECT_DOOR_PUZZLE_COLOURED_FERRETS_FROZEN
     };
 
