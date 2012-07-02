@@ -52,4 +52,14 @@ public enum Avatar
     {
         return Players.getLocal().isMoving();
     }
+
+    /**
+     * Checks if the player is idle.
+     *
+     * @return true if it's idle; false otherwise;
+     */
+    public static boolean isIdle()
+    {
+        return Players.getLocal().getAnimation() == -1;
+    }
 }

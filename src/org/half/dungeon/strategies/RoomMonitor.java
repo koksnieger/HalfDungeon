@@ -24,7 +24,7 @@ public class RoomMonitor extends Strategy implements Task
     {
         return Game.getClientState() != 12 // client can't be loading
                 && Dungeon.inside()        // must be inside of the dungeon
-                && !Avatar.isMoving();     // no need to check for changes while the avatar is moving
+                && Avatar.isIdle();        // no need to check for changes while the avatar isn't idle
     }
 
     @Override
