@@ -17,8 +17,8 @@ public class RoomMonitor extends Strategy implements Task
     @Override
     public boolean validate()
     {
-        Room currentRoom = Avatar.getCurrentRoom();
-        return Game.getClientState() != 12 && Dungeon.inside() && (currentRoom == null || !currentRoom.contains(Avatar.getLocation()));
+        Room currentRoom = Avatar.currentRoom();
+        return Game.getClientState() != 12 && Dungeon.inside() && (currentRoom == null || !currentRoom.contains(Avatar.location()));
     }
 
     @Override
@@ -29,7 +29,7 @@ public class RoomMonitor extends Strategy implements Task
         if (avatarRoom == null)
         {
             // Room isn't mapped, so map it
-            avatarRoom = Room.createRoomFromTile(Avatar.getLocation());
+            avatarRoom = Room.createRoomFromTile(Avatar.location());
             Dungeon.rooms().add(avatarRoom);
 
             // Show some debugging output

@@ -13,24 +13,44 @@ public enum Avatar
 
     private static Room _currentRoom;
 
-    public static Room getCurrentRoom()
+    /**
+     * Gets the avatar current room.
+     *
+     * @return the avatar current room.
+     */
+    public static Room currentRoom()
     {
         return _currentRoom;
     }
 
+    /**
+     * Sets the avatar current room.
+     *
+     * @param room The room where the avatar is.
+     */
     public static void setCurrentRoom(Room room)
     {
         _currentRoom = room;
     }
 
-    public static Tile getLocation()
+    /**
+     * Gets the avatar location.
+     *
+     * @return The avatar location.
+     */
+    public static Tile location()
     {
         return Players.getLocal().getLocation();
     }
 
+    /**
+     * Finds the room where the avatar is.
+     *
+     * @return The room where the avatar is; null otherwise.
+     */
     public static Room findRoom()
     {
-        Tile avatarLocation = Avatar.getLocation();
+        Tile avatarLocation = location();
         for (Room room : Dungeon.rooms())
         {
             if (room.contains(avatarLocation))

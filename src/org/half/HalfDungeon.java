@@ -43,7 +43,7 @@ public final class HalfDungeon extends ActiveScript implements PaintListener
         if (Dungeon.inside())
         {
             // draw current room on mini map
-            Room currentRoom = Avatar.getCurrentRoom();
+            Room currentRoom = Avatar.currentRoom();
             if (currentRoom != null)
             {
                 currentRoom.drawOnMiniMap(g);
@@ -94,7 +94,7 @@ public final class HalfDungeon extends ActiveScript implements PaintListener
                 {
                     g.setColor(new Color(255, 255, 255, 64));
                 }
-                else if (room == Avatar.getCurrentRoom())
+                else if (room == Avatar.currentRoom())
                 {
                     g.setColor(new Color(0, 0, 255, 64));
                 }
