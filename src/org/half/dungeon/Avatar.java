@@ -44,20 +44,12 @@ public enum Avatar
     }
 
     /**
-     * Finds the room where the avatar is.
+     * Checks if the avatar is moving.
      *
-     * @return The room where the avatar is; null otherwise.
+     * @return true if it's moving; false otherwise;
      */
-    public static Room findRoom()
+    public static boolean isMoving()
     {
-        Tile avatarLocation = location();
-        for (Room room : Dungeon.rooms())
-        {
-            if (room.contains(avatarLocation))
-            {
-                return room;
-            }
-        }
-        return null;
+        return Players.getLocal().isMoving();
     }
 }

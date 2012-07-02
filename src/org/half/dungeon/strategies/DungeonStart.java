@@ -1,6 +1,5 @@
 package org.half.dungeon.strategies;
 
-import org.half.dungeon.Avatar;
 import org.half.dungeon.Dungeon;
 import org.powerbot.concurrent.Task;
 import org.powerbot.concurrent.strategy.Strategy;

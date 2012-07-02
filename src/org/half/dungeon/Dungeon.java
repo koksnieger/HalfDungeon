@@ -3,6 +3,7 @@ package org.half.dungeon;
 import org.half.dungeon.rooms.HomeRoom;
 import org.half.dungeon.rooms.Room;
 import org.powerbot.game.api.methods.Widgets;
+import org.powerbot.game.api.wrappers.Tile;
 
 import java.util.ArrayList;
 
@@ -73,5 +74,23 @@ public enum Dungeon
     {
         // The first room is the home room.
         return _rooms.size() == 0 ? null : (HomeRoom) _rooms.get(0);
+    }
+
+    /**
+     * Gets the room that contains the given tile.
+     *
+     * @param tile The tile which this room contains.
+     * @return The room found or null if there isn't a room.
+     */
+    public static Room getRoomFromTile(final Tile tile)
+    {
+        for (final Room room : rooms())
+        {
+            if (room.contains(tile))
+            {
+                return room;
+            }
+        }
+        return null;
     }
 }
