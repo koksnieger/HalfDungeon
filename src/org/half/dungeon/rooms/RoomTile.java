@@ -6,7 +6,8 @@ import org.powerbot.game.api.wrappers.Tile;
 
 public class RoomTile extends Tile
 {
-    public static final int FLAG_WALL_DUNGEON = 0x200000;
+    public static final int FLAG_DUNGEON_BLOCK = 0x200000;
+
     public static final int FLAG_WALL_NORTHWEST = 0x1;
     public static final int FLAG_WALL_NORTH = 0x2;
     public static final int FLAG_WALL_NORTHEAST = 0x4;
@@ -27,7 +28,7 @@ public class RoomTile extends Tile
     public boolean hasWallAndIsUnreachable()
     {
         int collisionFlags = getCollisionFlags();
-        return (collisionFlags & FLAG_WALL_DUNGEON) != 0 || (((collisionFlags & FLAG_WALL) != 0) && !canReach());
+        return (collisionFlags & FLAG_DUNGEON_BLOCK) != 0 || (((collisionFlags & FLAG_WALL) != 0) && !canReach());
     }
 
     public int getCollisionFlags()
