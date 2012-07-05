@@ -105,30 +105,36 @@ public final class HalfDungeon extends ActiveScript implements PaintListener
                 g.fillRect(x + 2, y + 2, 24, 24);
 
                 // draw doors
-                g.setColor(new Color(255, 255, 255, 192));
+                final Color closedColor = new Color(255, 0, 0, 192);
+                final Color openedColor = new Color(0, 128, 0, 192);
+
                 Door[] doors = room.getDoors();
 
                 // draw north door
                 if (doors[0] != null)
                 {
+                    g.setColor(doors[0].isOpen() ? openedColor : closedColor);
                     g.fillRect(x + 10, y - 2, 8, 4);
                 }
 
                 // draw east door
                 if (doors[1] != null)
                 {
+                    g.setColor(doors[1].isOpen() ? openedColor : closedColor);
                     g.fillRect(x + 26, y + 10, 4, 8);
                 }
 
                 // draw south door
                 if (doors[2] != null)
                 {
+                    g.setColor(doors[2].isOpen() ? openedColor : closedColor);
                     g.fillRect(x + 10, y + 26, 8, 4);
                 }
 
                 // draw west door
                 if (doors[3] != null)
                 {
+                    g.setColor(doors[3].isOpen() ? openedColor : closedColor);
                     g.fillRect(x - 2, y + 10, 4, 8);
                 }
             }
