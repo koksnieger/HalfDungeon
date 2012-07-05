@@ -25,6 +25,17 @@ public class Room extends Area
         super(new RoomTile(bounds.x, bounds.y), new RoomTile(bounds.x + bounds.width, bounds.y + bounds.height));
         _coordinates = coordinates;
         _doors = doors;
+
+        // TODO: remove debug
+        System.out.println("\nNew " + this);
+        for (final Door door : getDoors())
+        {
+            if (door != null)
+            {
+                System.out.println(door);
+            }
+        }
+        System.out.println();
     }
 
     /**
