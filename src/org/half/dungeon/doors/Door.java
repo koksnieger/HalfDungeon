@@ -6,15 +6,8 @@ import org.powerbot.game.api.wrappers.node.SceneObject;
 
 import java.awt.*;
 
-public class Door
+public abstract class Door
 {
-    public static final int OBJECT_DOOR_NORMAL_FROZEN = 50342;
-    public static final int OBJECT_DOOR_NORMAL_ABANDONED = 50343;
-    public static final int[] OBJECT_DOOR_NORMAL = {
-            OBJECT_DOOR_NORMAL_FROZEN,
-            OBJECT_DOOR_NORMAL_ABANDONED,
-    };
-
     private static final Color COLOR_CLOSED = new Color(255, 0, 0, 192);
     private static final Color COLOR_OPENED = new Color(0, 128, 0, 192);
     private static final Color COLOR_CAN_BE_OPENED = new Color(255, 128, 64, 192);
@@ -124,9 +117,10 @@ public class Door
         return COLOR_CLOSED;
     }
 
+    @Override
     public String toString()
     {
-        return getCompassPosition() + " Door: Normal";
+        return getCompassPosition() + " Door";
     }
 
     /**
@@ -142,9 +136,9 @@ public class Door
         {
             return null;
         }
-        else if (Misc.inArray(OBJECT_DOOR_NORMAL, object.getId()))
+        else if (Misc.inArray(NormalDoor.OBJECT_DOOR_NORMAL, object.getId()))
         {
-            return new Door(position, object);
+            return new NormalDoor(position, object);
         }
         else if (Misc.inArray(GuardianDoor.OBJECT_DOOR_GUARDIAN, object.getId()))
         {
@@ -179,7 +173,7 @@ public class Door
     public static boolean objectIsDoor(final SceneObject object)
     {
         return object != null
-                && (Misc.inArray(OBJECT_DOOR_NORMAL, object.getId())
+                && (Misc.inArray(NormalDoor.OBJECT_DOOR_NORMAL, object.getId())
                 || Misc.inArray(GuardianDoor.OBJECT_DOOR_GUARDIAN, object.getId())
                 || Misc.inArray(BossDoor.OBJECT_DOOR_BOSS, object.getId())
                 || Misc.inArray(KeyDoor.OBJECT_DOOR_KEY, object.getId())
