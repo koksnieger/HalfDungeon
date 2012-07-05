@@ -20,8 +20,8 @@ public class DungeonStart extends Strategy implements Task
     @Override
     public boolean validate()
     {
-        return Dungeon.inside()
-                && Dungeon.type() == Dungeon.UNKNOWN
+        return Dungeon.type() == Dungeon.UNKNOWN
+                && Dungeon.inside()
                 && SceneEntities.getNearest(EXIT_LADDERS) != null;
     }
 
