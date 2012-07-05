@@ -3,6 +3,7 @@ package org.half.dungeon;
 import org.half.dungeon.rooms.Room;
 import org.powerbot.game.api.methods.interactive.Players;
 import org.powerbot.game.api.wrappers.Tile;
+import org.powerbot.game.api.wrappers.interactive.Player;
 
 /**
  * Thread safe 'class' to hold some of the avatar properties.
@@ -12,6 +13,7 @@ public enum Avatar
     SINGLETON;
 
     private static Room _room;
+    private static final Player _player = Players.getLocal();
 
     /**
      * Gets the avatar room.
@@ -40,7 +42,7 @@ public enum Avatar
      */
     public static Tile location()
     {
-        return Players.getLocal().getLocation();
+        return _player.getLocation();
     }
 
     /**
@@ -50,7 +52,7 @@ public enum Avatar
      */
     public static boolean isMoving()
     {
-        return Players.getLocal().isMoving();
+        return _player.isMoving();
     }
 
     /**
@@ -60,6 +62,6 @@ public enum Avatar
      */
     public static boolean isIdle()
     {
-        return Players.getLocal().getAnimation() == -1;
+        return _player.getAnimation() == -1;
     }
 }
