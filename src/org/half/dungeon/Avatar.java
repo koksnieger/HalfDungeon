@@ -11,26 +11,26 @@ public enum Avatar
 {
     SINGLETON;
 
-    private static Room _currentRoom;
+    private static Room _room;
 
     /**
-     * Gets the avatar current room.
+     * Gets the avatar room.
      *
-     * @return the avatar current room.
+     * @return The room where the avatar is.
      */
-    public static Room currentRoom()
+    public static Room room()
     {
-        return _currentRoom;
+        return _room;
     }
 
     /**
-     * Sets the avatar current room.
+     * Sets the avatar room.
      *
      * @param room The room where the avatar is.
      */
-    public static void setCurrentRoom(Room room)
+    public static void setRoom(Room room)
     {
-        _currentRoom = room;
+        _room = room;
     }
 
     /**

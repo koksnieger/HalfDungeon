@@ -31,7 +31,7 @@ public class RoomMonitor extends Strategy implements Task
     {
         // Save avatar current room and location.
         final Tile avatarLocation = Avatar.location();
-        final Room avatarRoom = Avatar.currentRoom();
+        final Room avatarRoom = Avatar.room();
 
         // Check if the avatar already had a room.
         if (avatarRoom == null)
@@ -39,7 +39,7 @@ public class RoomMonitor extends Strategy implements Task
             // Looks like this is the first room, so add it.
             final Room room = Room.createRoomFromTile(avatarLocation);
             Dungeon.rooms().add(room);
-            Avatar.setCurrentRoom(room);
+            Avatar.setRoom(room);
             return;
         }
 
@@ -47,7 +47,7 @@ public class RoomMonitor extends Strategy implements Task
         if (!avatarRoom.contains(avatarLocation))
         {
             // Update the room where the avatar is.
-            Avatar.setCurrentRoom(Dungeon.getRoomFromTile(avatarLocation));
+            Avatar.setRoom(Dungeon.getRoomFromTile(avatarLocation));
             return;
         }
 
