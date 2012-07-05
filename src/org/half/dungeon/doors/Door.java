@@ -4,6 +4,8 @@ import org.half.dungeon.rooms.Room;
 import org.half.utils.Misc;
 import org.powerbot.game.api.wrappers.node.SceneObject;
 
+import java.awt.*;
+
 public class Door
 {
     public static final int OBJECT_DOOR_NORMAL_FROZEN = 50342;
@@ -13,10 +15,14 @@ public class Door
             OBJECT_DOOR_NORMAL_ABANDONED,
     };
 
+    private static final Color COLOR_CLOSED = new Color(255, 0, 0, 192);
+    private static final Color COLOR_OPENED = new Color(0, 128, 0, 192);
+    private static final Color COLOR_CAN_BE_OPENED = new Color(255, 128, 64, 192);
+
     protected final int _position;
     protected final SceneObject _object;
     protected Room _destinationRoom;
-    protected boolean _open = false;
+    protected boolean _opened = false;
 
     /**
      * Creates a door object.
@@ -88,11 +94,11 @@ public class Door
     /**
      * Checks if the door is open.
      *
-     * @return true if the door is open; false otherwise;
+     * @return true if the door is open; false otherwise.
      */
     public boolean isOpen()
     {
-        return _open;
+        return _opened;
     }
 
     /**
@@ -100,7 +106,22 @@ public class Door
      */
     public void open()
     {
-        _open = true;
+        _opened = true;
+    }
+
+    /**
+     * Gets this door color for painting.
+     *
+     * @return The color of this door.
+     */
+    public Color color()
+    {
+        if (_opened)
+        {
+            return COLOR_OPENED;
+        }
+
+        return COLOR_CLOSED;
     }
 
     public String toString()
