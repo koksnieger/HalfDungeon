@@ -16,6 +16,7 @@ public class Door
     protected final int _position;
     protected final SceneObject _object;
     protected Room _destinationRoom;
+    protected boolean _open = false;
 
     /**
      * Creates a door object.
@@ -82,6 +83,24 @@ public class Door
     public void setDestinationRoom(Room destinationRoom)
     {
         _destinationRoom = destinationRoom;
+    }
+
+    /**
+     * Checks if the door is open.
+     *
+     * @return true if the door is open; false otherwise;
+     */
+    public boolean isOpen()
+    {
+        return _open;
+    }
+
+    /**
+     * Opens this door.
+     */
+    public void open()
+    {
+        _open = true;
     }
 
     public String toString()
