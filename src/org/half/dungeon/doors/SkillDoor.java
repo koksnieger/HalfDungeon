@@ -10,11 +10,21 @@ public class SkillDoor extends Door
     public static final int OBJECT_DOOR_SKILL_BROKEN_PULLEY_CLOSED_FROZEN = 50299;
     public static final int OBJECT_DOOR_SKILL_BROKEN_PULLEY_OPEN_FROZEN = 50302;
 
+    public static final int OBJECT_DOOR_SKILL_BROKEN_KEY_CLOSED_FROZEN = 50308;
+    public static final int OBJECT_DOOR_SKILL_BROKEN_KEY_OPEN_FROZEN = 50311;
+
+    public static final int OBJECT_DOOR_SKILL_WOODEN_BARRICADE_CLOSED_FROZEN = 50317;
+    public static final int OBJECT_DOOR_SKILL_WOODEN_BARRICADE_OPEN_FROZEN = 50320;
+
     public static final int[] OBJECT_DOOR_SKILL = {
             OBJECT_DOOR_SKILL_BARRED_CLOSED_FROZEN,
             OBJECT_DOOR_SKILL_BARRED_OPEN_FROZEN,
             OBJECT_DOOR_SKILL_BROKEN_PULLEY_CLOSED_FROZEN,
-            OBJECT_DOOR_SKILL_BROKEN_PULLEY_OPEN_FROZEN
+            OBJECT_DOOR_SKILL_BROKEN_PULLEY_OPEN_FROZEN,
+            OBJECT_DOOR_SKILL_BROKEN_KEY_CLOSED_FROZEN,
+            OBJECT_DOOR_SKILL_BROKEN_KEY_OPEN_FROZEN,
+            OBJECT_DOOR_SKILL_WOODEN_BARRICADE_CLOSED_FROZEN,
+            OBJECT_DOOR_SKILL_WOODEN_BARRICADE_OPEN_FROZEN
     };
 
     /**
@@ -28,6 +38,7 @@ public class SkillDoor extends Door
         super(position, object);
     }
 
+    @Override
     public String toString()
     {
         return getCompassPosition() + " Door: Skill";
