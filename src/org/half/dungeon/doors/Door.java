@@ -114,8 +114,20 @@ public abstract class Door
             return COLOR_OPENED;
         }
 
+        if (canBeOpened())
+        {
+            return COLOR_CAN_BE_OPENED;
+        }
+
         return COLOR_CLOSED;
     }
+
+    /**
+     * Checks if this door can be opened.
+     *
+     * @return true if this door can be opened; false otherwise;
+     */
+    public abstract boolean canBeOpened();
 
     @Override
     public String toString()

@@ -22,6 +22,17 @@ public class NormalDoor extends Door
         super(position, object);
     }
 
+    /**
+     * Checks if this door can be opened.
+     *
+     * @return true if this door can be opened; false otherwise;
+     */
+    @Override
+    public boolean canBeOpened()
+    {
+        return true;
+    }
+
     @Override
     public String toString()
     {

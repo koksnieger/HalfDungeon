@@ -178,6 +178,19 @@ public class KeyDoor extends Door
         super(position, object);
     }
 
+    /**
+     * Checks if this door can be opened.
+     *
+     * @return true if this door can be opened; false otherwise;
+     */
+    @Override
+    public boolean canBeOpened()
+    {
+        // TODO: check if we have the key to unlock this door
+        return false;
+    }
+
+    @Override
     public String toString()
     {
         return getCompassPosition() + " Door: Key";

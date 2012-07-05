@@ -22,6 +22,19 @@ public class GuardianDoor extends Door
         super(position, object);
     }
 
+    /**
+     * Checks if this door can be opened.
+     *
+     * @return true if this door can be opened; false otherwise;
+     */
+    @Override
+    public boolean canBeOpened()
+    {
+        // TODO: check if this door's room has NPCs left to kill. (for now it can be opened)
+        return true;
+    }
+
+    @Override
     public String toString()
     {
         return getCompassPosition() + " Door: Guardian";

@@ -42,6 +42,19 @@ public class PuzzleDoor extends Door
         super(position, object);
     }
 
+    /**
+     * Checks if this door can be opened.
+     *
+     * @return true if this door can be opened; false otherwise;
+     */
+    @Override
+    public boolean canBeOpened()
+    {
+        // TODO: check if this door's room has the puzzle solved. (for now it can be opened)
+        return true;
+    }
+
+    @Override
     public String toString()
     {
         return getCompassPosition() + " Door: Puzzle";
