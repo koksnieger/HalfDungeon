@@ -21,9 +21,8 @@ public class RoomMonitor extends Strategy implements Task
     @Override
     public boolean validate()
     {
-        return Game.getClientState() != 12 // client can't be loading
-                && Dungeon.inside()        // must be inside of the dungeon
-                && Avatar.isIdle();        // no need to check for changes while the avatar isn't idle
+        return Game.getClientState() == 11 // client must be loaded and not busy
+                && Dungeon.inside();       // must be inside of the dungeon
     }
 
     @Override
