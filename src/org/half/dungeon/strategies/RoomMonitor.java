@@ -2,6 +2,7 @@ package org.half.dungeon.strategies;
 
 import org.half.dungeon.Avatar;
 import org.half.dungeon.Dungeon;
+import org.half.dungeon.doors.Door;
 import org.half.dungeon.rooms.Room;
 import org.half.dungeon.rooms.RoomTile;
 import org.powerbot.concurrent.Task;
@@ -59,14 +60,26 @@ public class RoomMonitor extends Strategy implements Task
                 new RoomTile(roomBounds.x + 7, roomBounds.y - 3),  // south
                 new RoomTile(roomBounds.x - 3, roomBounds.y + 7)   // west
         };
-        for (final RoomTile tile : neighbourTiles)
+        for (int i = 0; i < 4; i++)
         {
+            RoomTile tile = neighbourTiles[i];
+
             // Check if this tile isn't blocked and there isn't a mapped room containing it.
             if ((tile.getCollisionFlags() & RoomTile.FLAG_DUNGEON_BLOCK) == 0 && Dungeon.getRoomFromTile(tile) == null)
             {
                 // This room isn't mapped, so map it.
                 final Room room = Room.createRoomFromTile(tile);
                 Dungeon.rooms().add(room);
+
+                // If we can see this room, then the doors between rooms are open.
+                final Door avatarRoomDoor = avatarRoom.getDoors()[i];
+                final Door symmetricRoomDoor = room.getDoors()[(i + 2) % 4];
+                if (avatarRoomDoor != null && symmetricRoomDoor != null)
+                {
+                    avatarRoomDoor.open();
+                    symmetricRoomDoor.open();
+                }
+
                 return;
             }
         }
